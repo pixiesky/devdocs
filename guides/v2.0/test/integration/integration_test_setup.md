@@ -2,25 +2,24 @@
 layout: default
 group: test-guide
 subgroup: B2_Integration_Test_Setup
-title: Preparing Integration Test Execution
-menu_title: Integration Test Setup
+title: Preparing integration test execution
+menu_title: Preparing integration test execution
 menu_node: parent
 contributor_name: Vinai Kopp
 contributor_link: http://vinaikopp.com/
 github_link: test/intgration/integration_test_setup.md
 ---
 
-## Preparing Integration Test Execution
+## Preparing integration iest execution
 
 * TOC
 {:toc}
 
-Before the Magento integration test framework can be used, the test environment has to be prepared.  
-The following prerequisites are required:
+You must prepare the Magento integration test framework before use as follows:
 
-* A dedicated integration test database
-* The test framework database configuration
-* The PHPUnit configuration has to match the purpose of the integration test execution
+* Create a dedicated integration test database
+* Configure the test framework database 
+* Configure PHPUnit to match the purpose of the integration test execution
 
 ### The integration test database
 
@@ -31,7 +30,8 @@ By default, for every integration test run, the test framework installs a fresh 
     Any data (products, customers, orders and everything else) will be lost!</p>
 </div>
 
-For safety reasons it is recommended to use a dedicated database user for running the tests. That db user should not have access to any other databases.  
+For safety reasons it is recommended to use a dedicated database user for running the tests. That db user should not have access to any other databases. 
+
 Here are example SQL commands to create a test database and a dedicated test user account.
 
 {%highlight sql%}
@@ -44,17 +44,15 @@ Replace the example database and user name and the example password with somethi
 ### Configuring the framework to use the test database
 
 The Magento 2 integration test framework comes with a configuration file template located at  
-`mage2ce/dev/tests/integration/etc/install-config-mysql.php.dist`.  
+`<magento root dir>/dev/tests/integration/etc/install-config-mysql.php.dist`.  
 
 Copy this file to  
-`mage2ce/dev/tests/integration/etc/install-config-mysql.php`  
+`<magento root dir>/dev/tests/integration/etc/install-config-mysql.php`  
 (without the `.dist` suffix) and add your test database access credentials.
 
 The contents will look something like the following. Use the DB access credentials for your test database instead of the example values below.
 
-{%highlight php%}
-<?php
-
+{%highlight php startinline=true %}
 return [
     'db-host' => 'localhost',
     'db-user' => 'magento2_test_user',
@@ -78,13 +76,13 @@ return [
 
 The default integration test configuration can be found at `dev/tests/integration/phpunit.xml.dist`.  
 
-Without adjustments it will run all core integration tests, which is useful for example on a continuous integration server.  
+Without adjustments. it will run all core integration tests, which is useful for example on a continuous integration server.  
 
 When making adjustments to the configuration, copy the default file to `dev/tests/integration/phpunit.xml` (again, without the `.dist` suffix) and make your changes there. That way your changes will not be overwritten during Magento upgrades.  
 
-There are many settings in the file.  
-This guide will only describes three common adjustments.  
-Please refer to the [PHPUnit documentation](https://phpunit.de/manual/4.1/en/appendixes.configuration.html) and the comments in the default file for more information on the available configuration settings.
+There are many settings in the file. This topic discusses only three common adjustments.  
+
+Please refer to the [PHPUnit documentation](https://phpunit.de/manual/4.1/en/appendixes.configuration.html){:target="_blank"} and the comments in the default file for more information on the available configuration settings.
 
 #### The TESTS_CLEANUP Constant
 
@@ -95,15 +93,13 @@ Default value:
 {%endhighlight%}
 
 If this constant is set to `enabled`, the integration test framework will clean the test database and re-install Magento on every test run.  
-That way any new modules will be automatically picked up, and any cruft that might have been left over from previous test runs will be removed.  
-It also causes the test framework to flush the test Magento configuration, the cache and the code generation before executing any tests.  
+
+That way, any new modules will be automatically picked up, and any leftovers from previous test runs are removed. It also causes the test framework to flush the test Magento configuration, the cache and the code generation before executing any tests.  
 
 The downside of setting `TEST_CLEANUP` to `enabled` is that the re-installation of Magento takes time (the exact time depends on the host you are using to run the integration tests and the Magento version.)  
-
 During the development of new integration tests, where only a subset of the tests is executed repeatedly, that overhead of setting up a fresh execution environment for each run quickly becomes a burden.  
 
-In that case the `TEST_CLEANUP` constant can be set to `disabled`.  
-The test execution will start much quicker, but as a consequence the developer has to flush the cache and the database when needed manually.  
+In that case. the `TEST_CLEANUP` constant can be set to `disabled`. The test execution will start much quicker, but as a consequence the developer has to flush the cache and the database when needed manually.  
 
 The integration test framework creates the temporary test files beneath the directory  
 `dev/tests/integration/tmp/sandbox-*` (followed by a long hash ID).  
@@ -117,8 +113,8 @@ $ rm -r dev/tests/integration/tmp/sandbox-*
 #### The PHP memory_limit
 
 The default `phpunit.xml.dist` file does not contain any PHP `memory_limit` settings.  
-However, sometimes the PHP configuration restricts the amount of memory PHP may consume.  
-This can make it impossible to run the integration tests.  
+
+However, sometimes the PHP configuration restricts the amount of memory PHP can consume.  This can make it impossible to run the integration tests.  
 
 The PHP memory limit can be turned off by adding the following configuration to the `<php>` section of the integration test `phpunit.xml` file:
 

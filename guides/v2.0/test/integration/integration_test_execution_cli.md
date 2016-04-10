@@ -2,8 +2,8 @@
 layout: default
 group: test-guide
 subgroup: B3_Running_Integration_Tests
-title: Running Integration Tests in the CLI
-menu_title: Running Integration Tests in the CLI
+title: Running integration tests in the CLI
+menu_title: Running integration tests in the CLI
 menu_node: parent
 contributor_name: Vinai Kopp
 contributor_link: http://vinaikopp.com/
@@ -17,10 +17,9 @@ github_link: test/intgration/integration_test_execution.md
 
 Probably the most common way to execute integration tests is using the command line.  
 
-Please ensure you have [prepared the integration test environment]({{ site.gdeurl }}test/integration/integration_test_setup.html) before starting.
+Before you begin, make sure you [prepared the integration test environment]({{ site.gdeurl }}test/integration/integration_test_setup.html).
 
-The integration tests have to be executed with the current working directory being `dev/tests/integration`.  
-The test configuration resides in that directory and will be picked up by `phpunit` automatically, without the need to specify it as a command line option.
+The integration tests have to be executed with the current working directory, which is `dev/tests/integration`.  The test configuration resides in that directory and will be picked up by `phpunit` automatically, without the need to specify it as a command line option.
 
 ### Running all integration tests
 
@@ -40,8 +39,7 @@ Note the path to the `phpunit` executable installed by composer into the vendor 
 
 ### Running only a custom testsuite
 
-PHPUnit offers several ways to only execute a subset of tests.  
-For example, it is common to only execute a single testsuite from the `phpunit.xml` configuration.
+PHPUnit offers several ways to only execute a subset of tests. For example, it is common to only execute a single testsuite from the `phpunit.xml` configuration.
 
 {%highlight bash%}
 $ cd dev/tests/integration
@@ -89,9 +87,9 @@ To fix the issue, change into the directory `dev/tests/integration` and run the 
 
 #### Unable to connect to MySQL
 
-The PHP interpreter has to be able to connect to the test database. By default this means the tests have to run on the same host as the MySQL server.  
-This problem most commonly crops up during development with vagrant or docker, where the Magento DB is running on a virtual machine.  
-If the tests then are executed using a PHP interpreter on the host system, the database might not be accessible.  
+The PHP interpreter has to be able to connect to the test database. By default, this means the tests must run on the same host as the MySQL server.  
+
+This problem most commonly crops up during development with Vagrant or Docker, where the Magento DB is running on a virtual machine. If the tests then are executed using a PHP interpreter on the host system, the database might not be accessible.  
 
 The error usually looks something like this.
 {%highlight bash%}

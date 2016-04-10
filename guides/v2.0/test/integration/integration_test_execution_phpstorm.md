@@ -23,7 +23,7 @@ Please ensure you have [prepared the integration test environment]({{ site.gdeur
 
 Setting up a run configuration for integration tests is very similar to creating a run configuration for unit tests.  
 
-Please refer to [Running Unit Tests in PHPStorm]({{ site.gdeurl }}test/unit/unit_test_execution_phpstorm.html) for instructions on how to create a basic run configuration.  
+Please refer to [Running unit tests in PHPStorm]({{ site.gdeurl }}test/unit/unit_test_execution_phpstorm.html) for instructions on how to create a basic run configuration.  
 Then configure the integration test configuration file to be used.
 
 #### Using the integration test configuration file
